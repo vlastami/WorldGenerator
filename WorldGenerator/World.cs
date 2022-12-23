@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WorldGenerator
+﻿namespace WorldGenerator
 {
     public class World
     {
@@ -21,9 +15,9 @@ namespace WorldGenerator
         private readonly bool hasOceans;
         private readonly double averageTemperature;
         private readonly bool hasDeserts;
-        private readonly string[] majorCities;
+        private readonly List<string> majorCities;
 
-        private World(Soil soil, Climate climate, byte waterBodiesFrequency, byte treesFrequency, int area, int population, string dominantReligion, string language, bool hasOceans, double averageTemperature, bool hasDeserts, string[] majorCities)
+        private World(Soil soil, Climate climate, byte waterBodiesFrequency, byte treesFrequency, int area, int population, string dominantReligion, string language, bool hasOceans, double averageTemperature, bool hasDeserts, List<string> majorCities)
         {
             this.soil = soil;
             this.climate = climate;
@@ -55,7 +49,7 @@ namespace WorldGenerator
             private bool hasOceans = true;
             private double averageTemperature = 17.5;
             private bool hasDeserts = false;
-            private string[] majorCities = new string[]{ "SaltCity", "SweetTown", "Las Pizzas" };
+            private List<string> majorCities = new List<string>(){ "SaltCity", "SweetTown", "Las Pizzas" };
 
             public Builder Soil(Soil soil)
             {
@@ -107,7 +101,7 @@ namespace WorldGenerator
                 return this;
             }
 
-            public Builder MajorCities(string[] majorCities)
+            public Builder MajorCities(List<string> majorCities)
             {
                 this.majorCities = majorCities;
                 return this;
@@ -132,5 +126,12 @@ namespace WorldGenerator
         }
 
 
+        public override string ToString()
+        {
+            return
+                $"{nameof(soil)}: {soil}, {nameof(climate)}: {climate}, {nameof(waterBodiesFrequency)}: {waterBodiesFrequency}, {nameof(treesFrequency)}: {treesFrequency}, {nameof(area)}: {area}," +
+                $" {nameof(population)}: {population}, {nameof(dominantReligion)}: {dominantReligion}, {nameof(language)}: {language}, {nameof(hasOceans)}: {hasOceans}," +
+                $" {nameof(averageTemperature)}: {averageTemperature}, {nameof(hasDeserts)}: {hasDeserts}, {nameof(majorCities)}: {majorCities}";
+        }
     }
 }
