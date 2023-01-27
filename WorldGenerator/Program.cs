@@ -1,80 +1,32 @@
-﻿using System;
-
-namespace WorldGenerator
+﻿namespace WorldGenerator
 {
-    class Program
+    public class Program
     {
-        private static GameDirector director = new GameDirector();
-
-        private static int HandleUserInput(int choiceLimit)
+        public static void Main(string[] args)
         {
-            bool inputOK = true;
-            int input;
-            do
+            Console.WriteLine("Select a world to create: 1. Desert, 2. Ocean");
+            var input = Console.ReadLine();
+            IWorldBuilder selectedBuilder;
+            switch (input)
             {
-                inputOK = Int32.TryParse(Console.ReadLine(), out input);
-                if (inputOK)
-                {
-                    if (input > choiceLimit || input <= 0)
-                    {
-                        inputOK = false;
-                    }
-                }
-
-                if (!inputOK)
-                {
-                    Console.WriteLine("Select valid value (1-" + choiceLimit + ")");
-                }
-            } while (!inputOK);
-
-            return input;
-        }
-
-        private static void PromptUserToCreateWorld()
-        {
-            Console.WriteLine("Generate your own world");
-            Console.WriteLine("Ready?");
-            Console.WriteLine("1 - Desert World");
-            Console.WriteLine("2 - Crowded World");
-            Console.WriteLine("3 - Tiny World");
-
-            switch (HandleUserInput(3))
-            {
-                case 1:
-                    director.createDesertWorld();
+                case "1":
+                    selectedBuilder = new DesertWorldBuilderBuilder();
                     break;
-                case 2:
-                    director.createCrowdedWorld();
+                case "2":
+                    selectedBuilder = new OceanWorldBuilderBuilder();
                     break;
-                case 3:
-                    director.createTinyWorld();
-                    break;
+                default:
+                    Console.WriteLine("Invalid selection, please enter 1 or 2.");
+                    return;
             }
 
-        }
-
-        private static void ShowWorldStats()
-        {
-            Console.WriteLine(director.getWorldInfo());
-            
-        }
-
-
-        static void Main(string[] args)
-        {
-
-            PromptUserToCreateWorld();
-            ShowWorldStats();
-
-
-
+            Director director = new Director();
+            WorldBuilder myWorldBuilder = director.constructWorld(selectedBuilder);
 
             
-
-
+            Console.WriteLine("Tree count: " + myWorldBuilder.treeCount);
+            Console.WriteLine("Water percent: "+ myWorldBuilder.waterPercent);
+            
         }
     }
-
-
-
 }
