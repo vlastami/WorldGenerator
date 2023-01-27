@@ -10,10 +10,10 @@
             switch (input)
             {
                 case "1":
-                    selectedBuilder = new DesertWorldBuilderBuilder();
+                    selectedBuilder = new DesertWorldBuilder();
                     break;
                 case "2":
-                    selectedBuilder = new OceanWorldBuilderBuilder();
+                    selectedBuilder = new OceanWorldBuilder();
                     break;
                 default:
                     Console.WriteLine("Invalid selection, please enter 1 or 2.");
@@ -21,12 +21,12 @@
             }
 
             Director director = new Director();
-            WorldBuilder myWorldBuilder = director.constructWorld(selectedBuilder);
-
+            WorldBuilder myWorldBuilder = director.ConstructWorld(selectedBuilder);
             
-            Console.WriteLine("Tree count: " + myWorldBuilder.treeCount);
-            Console.WriteLine("Water percent: "+ myWorldBuilder.waterPercent);
-            
+            Console.WriteLine("Generated World");
+            Console.WriteLine("Tree count: " + myWorldBuilder.TreeCount);
+            Console.WriteLine("Water percent: "+ myWorldBuilder.WaterPercent);
+            Console.WriteLine("Size: " + myWorldBuilder.Size);
         }
     }
 }

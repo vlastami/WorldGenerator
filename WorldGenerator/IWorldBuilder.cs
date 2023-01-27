@@ -2,5 +2,5 @@
 
 public interface IWorldBuilder
 {
-    WorldBuilder getWorld();
+    WorldBuilder GetWorld();
 }
